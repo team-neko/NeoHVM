@@ -1,0 +1,14 @@
+{
+    "scripts": {
+        "dev": "concurrently \"bun run build:web:hot\" \"cd . && cargo watch -x run\"",
+        "build:web:hot": "cd web && bun run build:hot",
+        "build": "concurrently \"bun run build:web\" \"cd . && bun run build:backend\"",
+        "build:web": "cd web && bun build",
+        "build:backend": "cd backend && cargo build --release",
+        "start": "cd backend && cargo run --release",
+        "port-kill": "powershell -Command \"taskkill /PID (netstat -ano | findstr :5300 | ForEach-Object { ($_ -split '\\s+')[4] }) /F\""
+    },
+    "dependencies": {
+        "concurrently": "^8.2.2"
+    }
+}
