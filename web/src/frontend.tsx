@@ -7,12 +7,26 @@
 
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
-import { App } from "./App";
+import { BrowserRouter, Route, Routes } from "react-router";
+import { ThemeProvider } from "./components/theme-provider";
+
+import App from "./app/page";
+import { SidebarProvider } from "./components/ui/sidebar";
+import { AppSidebar } from "./components/app-sidebar";
 
 const elem = document.getElementById("root")!;
 const app = (
   <StrictMode>
-    <App />
+    <ThemeProvider defaultTheme="system" storageKey="bun-ui-theme">
+      <SidebarProvider>
+        <AppSidebar />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<App />} />
+          </Routes>
+        </BrowserRouter>
+      </SidebarProvider>
+    </ThemeProvider>
   </StrictMode>
 );
 

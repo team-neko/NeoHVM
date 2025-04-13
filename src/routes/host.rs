@@ -1,32 +1,31 @@
-// Todo : Fix the issue with the wmi
 use axum::{Router, Json, response::IntoResponse, http::StatusCode};
 use axum::routing::get;
 use serde_json::json;
 use std::time::Instant;
-use crate::lib::virt::list::get_vm_list;
+use crate::lib::host::tool::get_hostname;
 
 pub fn routes() -> Router {
-    Router::new().route("/list", get(list))
+    Router::new().route("/hostname", get(hostname))
 }
 
 #[utoipa::path(
     get,
-    path = "/list",
+    path = "/hostname",
     responses(
-        (status = 200, description = "Return Hyper-V virtual machines List", body = serde_json::Value),
+        (status = 200, description = "Get Host Name", body = serde_json::Value),
         (status = 500, description = "Internal server error")
     )
 )]
 #[axum::debug_handler]
-/// List Hyper-V virtual machines
-pub async fn list() -> impl IntoResponse {
+/// Get Host Name
+pub async fn hostname() -> impl IntoResponse {
     let start_time = Instant::now();
-    let vm_list = get_vm_list();
+    let hostname = get_hostname();
     let end_time = Instant::now();
     let duration = end_time.duration_since(start_time);
 
     (StatusCode::OK, Json(json!({
-        "vms": vm_list,
+        "hostname": hostname,
         "time": duration.as_millis(),
         "status": "success"
     })))

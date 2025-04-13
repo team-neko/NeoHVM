@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "dev": "concurrently \"bun run build:web:hot\" \"cd . && cargo watch -x run\"",
+        "dev": "concurrently \"bun run build:web:hot\" \"cd . && cargo watch --ignore web/ -x run\"",
         "build:web:hot": "cd web && bun run build:hot",
         "build": "concurrently \"bun run build:web\" \"cd . && bun run build:backend\"",
         "build:web": "cd web && bun build",
