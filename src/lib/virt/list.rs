@@ -24,7 +24,5 @@ pub fn get_vm_list() -> serde_json::Value {
         })
     }).collect::<Vec<_>>();
     
-    json!({
-        "vms": vms
-    })
+    vms.into()
 }
