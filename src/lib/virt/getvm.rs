@@ -50,7 +50,7 @@ pub fn get_vm_info(vm_id: &str) -> serde_json::Value {
         Err(e) => {
             println!("WMI query failed: {}", e);
             return json!({
-                "error": format!("Failed to query WMI: {}", e),
+                "error": format!("Failed to query WMI: {}", e), 
                 "status": "error"
             });
         }
